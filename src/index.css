@@ -1,0 +1,13 @@
+@font-face {
+    font-family: vazirmatn;
+    src: url(./assets/Fonts/Vazirmatn-Regular.ttf);
+    font-weight: 400;
+}
+@font-face {
+    font-family: vazirmatn;
+    src: url(./assets/Fonts/Vazirmatn-Medium.ttf);
+    font-weight: 500;
+}
+body {
+    font-family: vazirmatn, Arial, Helvetica, sans-serif;
+}
