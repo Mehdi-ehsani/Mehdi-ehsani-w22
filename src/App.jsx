@@ -1,5 +1,7 @@
+import Router from "./router/Router";
+
 function App() {
-	return <h1>Hellow World!</h1>;
+	return <Router/>;
 }
 
 export default App;
