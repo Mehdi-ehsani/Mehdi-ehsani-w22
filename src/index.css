@@ -8,6 +8,11 @@
     src: url(./assets/Fonts/Vazirmatn-Medium.ttf);
     font-weight: 500;
 }
-body {
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body , input , button{
     font-family: vazirmatn, Arial, Helvetica, sans-serif;
 }
