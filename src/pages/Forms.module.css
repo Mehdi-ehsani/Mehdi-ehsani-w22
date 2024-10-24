@@ -7,7 +7,7 @@
 }
 .form {
     width: 470px;
-    height: 523px;
+    height: fit-content;
     border-radius: 40px;
     border: 1px solid #e4e4e4;
     padding: 20px 35px;
@@ -58,5 +58,5 @@
     text-decoration: none;
     color:  #3A8BED;
     font-weight: 400;
-    margin-top: 5px;
+    margin-top: 15px;
 }
