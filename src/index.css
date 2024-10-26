@@ -16,3 +16,6 @@
 body , input , button{
     font-family: vazirmatn, Arial, Helvetica, sans-serif;
 }
+body {
+    position: relative;
+}

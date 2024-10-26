@@ -1,7 +1,8 @@
 .container {
 	margin: 0 auto;
 	width: 1140px;
-	height: 100dvh;
+	min-height: 100dvh;
+	padding-top: 30px;
 }
 .nav {
 	width: 100%;
@@ -10,7 +11,6 @@
 	align-items: center;
 	border-radius: 16px;
 	border: 1px solid #e4e4e4;
-	margin-top: 30px;
 	padding: 0 20px;
 }
 .searchBox {
@@ -54,10 +54,9 @@
 .products {
 	width: 100%;
     height: 737px;
-    /* padding: 0 39px; */
     border: 1px solid #e4e4e4;
     border-radius: 30px;
-    margin: 30px 0;
+    margin: 10px 0;
     overflow: hidden;
 }
 .header {
@@ -73,4 +72,34 @@
     font-size: 14px;
     color: #282828;
     font-weight: 500;
+}
+.btn {
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 40px;
+}
+.btn button {
+	width: 132px;
+	height: 45px;
+	border-radius: 10px;
+	outline: none;
+	border: none;
+	background: #55a3f0;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 400;
+	cursor: pointer;
+}
+.btn div {
+	display: flex;
+	align-items: center;
+}
+.btn h1 {
+	font-size: 1.5rem;
+	font-weight: 400;
+	color: #282828;
+	margin-right: 10px;
 }

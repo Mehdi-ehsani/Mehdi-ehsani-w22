@@ -12,5 +12,8 @@ const useLogin = () => {
 	const mutationFn = (data) => api.post("auth/login", data);
 	return useMutation({ mutationFn });
 };
-
-export { useRegister, useLogin };
+const usePostProduct = () => {
+	const mutationFn = (data) => api.post("products", data);
+	return useMutation({ mutationFn });
+}
+export { useRegister, useLogin ,usePostProduct};

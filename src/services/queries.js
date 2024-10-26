@@ -5,6 +5,6 @@ const useProducts = () => {
 	const queryFn = (data) => {
 	 return	api.get("products", data);
 	};
-	return useQuery({queryKey: ["products"] , queryFn});
+	return useQuery({queryKey: ["products"] , queryFn });
 };
 export {useProducts}
