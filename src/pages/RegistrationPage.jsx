@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 import useRegisterReducer from "../store/reducers/useRegisterReducer";
 import validateRegisterForm from "../utils/validateRegisterForm";
 import { useRegister } from "../services/mutations";
+import { getCookie } from "../utils/cookie";
 import styles from "./Forms.module.css";
 import logo from "../assets/image/logo.png";
 
@@ -11,6 +13,11 @@ const RegistrationPage = () => {
 	const [formData, dispatchFormData] = useRegisterReducer();
 	const { mutate } = useRegister();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const token = getCookie("token");
+		token && navigate("/");
+	}, [navigate]);
 
 	const changeHandler = (event) => {
 		const value = event.target.value;
