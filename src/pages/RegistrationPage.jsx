@@ -1,21 +1,81 @@
-import styles from "./Forms.module.css"
-import logo from "../assets/image/logo.png"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import useRegisterReducer from "../store/reducers/useRegisterReducer";
+import validateRegisterForm from "../utils/validateRegisterForm";
+import { useRegister } from "../services/mutations";
+import styles from "./Forms.module.css";
+import logo from "../assets/image/logo.png";
 
 const RegistrationPage = () => {
-  return (
-    <div className={styles.container}>
-     <form className={styles.form}>
-      <img className={styles.logo} src={logo} alt='logo'/>
-      <h1>فرم ثبت نام</h1>
-      <input type='text'placeholder='نام کاربری'/>
-      <input type='password' placeholder='رمز عبور'/>
-      <input type='password' placeholder=' تکرار رمز عبور'/>
-      <button className={styles.submitBtn} type='submit'>ثبت نام</button>
-      <Link to="/login">حساب کاربری دارید؟</Link>
-    </form>
-   </div>
-  )
-}
+	const [formData, dispatchFormData] = useRegisterReducer();
+	const { mutate } = useRegister();
+	const navigate = useNavigate();
 
-export default RegistrationPage
+	const changeHandler = (event) => {
+		const value = event.target.value;
+		const name = event.target.name.toUpperCase();
+
+		switch (name) {
+			case "NAME":
+				dispatchFormData({ type: "NAME", payload: value });
+				break;
+			case "PASSWORD":
+				dispatchFormData({ type: "PASSWORD", payload: value });
+				break;
+			case "CONFIRM_PASSWORD":
+				dispatchFormData({ type: "CONFIRM_PASSWORD", payload: value });
+		}
+	};
+
+	const addUser = (event) => {
+		event.preventDefault();
+		if (validateRegisterForm(formData, dispatchFormData)) {
+			mutate(
+				{ username: formData.name, password: formData.password },
+				{
+					onSuccess: (data) => {
+						console.log(data.data.message);
+						navigate("/login");
+					},
+					onError: (error) => console.log(error.response.data.message),
+				}
+			);
+		}
+	};
+	return (
+		<div className={styles.container}>
+			<form className={styles.form}>
+				<img className={styles.logo} src={logo} alt="logo" />
+				<h1>فرم ثبت نام</h1>
+				<input
+					onChange={changeHandler}
+					name="name"
+					value={formData.name}
+					type="text"
+					placeholder="نام کاربری"
+				/>
+				<input
+					onChange={changeHandler}
+					name="password"
+					value={formData.password}
+					type="password"
+					placeholder="رمز عبور"
+				/>
+				<input
+					onChange={changeHandler}
+					name="confirm_password"
+					value={formData.confirmPassword}
+					type="password"
+					placeholder=" تکرار رمز عبور"
+				/>
+				<button onClick={addUser} className={styles.submitBtn} type="submit">
+					ثبت نام
+				</button>
+				<Link to="/login">حساب کاربری دارید؟</Link>
+			</form>
+		</div>
+	);
+};
+
+export default RegistrationPage;
