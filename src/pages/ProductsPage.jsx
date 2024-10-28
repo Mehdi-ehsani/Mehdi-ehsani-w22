@@ -12,7 +12,6 @@ import AddProductModal from "../components/modals/AddProductModal";
 
 const ProductsPage = () => {
 	const [isAddModalShow, setIsAddModalShow] = useState(false);
-	const [isDisabled, setisDisabled] = useState(false);
 	const [pageNumber, setPageNumber] = useState(1);
 	
 	const navigate = useNavigate();
@@ -66,10 +65,11 @@ const ProductsPage = () => {
 					<p>شناسه کالا</p>
 				</div>
 				<div>
+					
 					{isPending && <h1>Loading...</h1>}
 					{!isPending &&
 						data.data.data.map((product) => (
-							<Product key={product.id} product={product} />
+							<Product data={data} key={product.id} product={product} />
 						))}
 					{isError && <h1>{error}</h1>}
 				</div>

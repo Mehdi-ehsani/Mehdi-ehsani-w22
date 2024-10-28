@@ -1,8 +1,8 @@
 import { useReducer } from "react";
 import { useProducts } from "../../services/queries";
-const useEditProductReducer =  (id) => {
-    const {data} = useProducts()
-	 const searchedProduct =  data?.data?.data.find(
+const useEditProductReducer =  (id , data) => {
+    // const {data} = useProducts()
+	 const searchedProduct =  data?.data?.data?.find(
 			(product) => product.id === id
 		);
      

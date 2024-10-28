@@ -4,8 +4,8 @@ import styles from "./addAndEditModals.module.css";
 import { useEditProduct } from "../../services/mutations";
 import useEditProductReducer from "../../store/reducers/useEditProductReducer";
 
-const EditProductModal = ({ setIsEditModalShow , id  }) => {
-	const [formData, dispatchFormData] = useEditProductReducer(id);
+const EditProductModal = ({ setIsEditModalShow , id  ,data}) => {
+	const [formData, dispatchFormData] = useEditProductReducer(id , data);
 
     const {mutate} = useEditProduct(id)
 
@@ -49,9 +49,9 @@ const EditProductModal = ({ setIsEditModalShow , id  }) => {
 				<label htmlFor="">نام کالا</label>
 				<input onChange={changeHandler} name="name" value={formData.name} placeholder="نام کالا" type="text" />
 				<label htmlFor="">تعداد موجودی</label>
-				<input onChange={changeHandler} name="price" value={formData.price} placeholder="تعداد " type="number" />
+				<input onChange={changeHandler} name="quantity" value={formData.quantity} placeholder="تعداد " type="number" />
 				<label htmlFor="">قیمت</label>
-				<input onChange={changeHandler} name="quantity" value={formData.quantity} placeholder="قیمت" type="number" />
+				<input onChange={changeHandler} name="price" value={formData.price} placeholder="قیمت" type="number" />
 				<div className={styles.btnContainer}>
 					<button onClick={addEditedProduct} className={styles.addBtn}>ثبت اطلاعات جدید</button>
 					<button className={styles.cancelB}onClick={() => setIsEditModalShow(false)}>انصراف</button>

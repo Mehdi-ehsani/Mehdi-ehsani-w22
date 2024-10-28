@@ -46,9 +46,9 @@ const AddProductModal = ({ setIsAddModalOpen  }) => {
 				<label htmlFor="">نام کالا</label>
 				<input onChange={changeHandler} name="name" value={formData.name} placeholder="نام کالا" type="text" />
 				<label htmlFor="">تعداد موجودی</label>
-				<input onChange={changeHandler} name="price" value={formData.price} placeholder="تعداد " type="number" />
+				<input onChange={changeHandler} name="quantity" value={formData.quantity} placeholder="تعداد " type="number" />
 				<label htmlFor="">قیمت</label>
-				<input onChange={changeHandler} name="quantity" value={formData.quantity} placeholder="قیمت" type="number" />
+				<input onChange={changeHandler} name="price" value={formData.price} placeholder="قیمت" type="number" />
 				<div className={styles.btnContainer}>
 					<button onClick={addProduct} className={styles.addBtn}>ایجاد</button>
 					<button className={styles.cancelB}onClick={() => setIsAddModalOpen(false)}>انصراف</button>
