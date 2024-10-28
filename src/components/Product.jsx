@@ -7,7 +7,8 @@ import EditProductModal from "./modals/EditProductModal";
 import DeleteConfirmModal from "./modals/DeleteConfirmModal";
 import formatNumber from "../helpers/formatNumber";
 
-const Product = ({ product , data}) => {
+const Product = (props) => {
+	const { product , data , isSelected , handleCheckboxChange , showCheckBox} = props
     const [isEditModalShow , setIsEditModalShow] = useState(false) 
     const [isDeleteModalShow , setIsDeleteModalShow] = useState(false) 
 
@@ -21,6 +22,7 @@ const Product = ({ product , data}) => {
 				<div>
 					<img onClick={() => setIsEditModalShow(true)} src={editImg} />
 					<img onClick={() => setIsDeleteModalShow(true)} src={trashImg} />
+					{showCheckBox &&   <input  type="checkbox"  checked={isSelected} onChange={() => handleCheckboxChange(product.id)}/>}
 				</div>
 			</div>
 			{isEditModalShow && <EditProductModal data={data} id={product.id} setIsEditModalShow={setIsEditModalShow}/>}

@@ -9,31 +9,51 @@ import settingImg from "../assets/image/setting.png";
 import styles from "./products.module.css";
 import Product from "../components/Product";
 import AddProductModal from "../components/modals/AddProductModal";
+import { useMultiDeleteProduct } from "../services/mutations";
+import PaginationButtons from "../components/PaginationButtons";
 
 const ProductsPage = () => {
 	const [isAddModalShow, setIsAddModalShow] = useState(false);
 	const [pageNumber, setPageNumber] = useState(1);
-	
+	const [selectedIds, setSelectedIds] = useState([]);
+	const [showCheckBox, setShowCheckBox] = useState(false);
+	const {mutate} = useMultiDeleteProduct()
+
 	const navigate = useNavigate();
 	useEffect(() => {
 		const token = getCookie("token");
 		token ? null : navigate("/login");
 	}, [navigate]);
-	const { data, isPending, isError, error } = useProducts(pageNumber);
-	const repetitions = Array.from({ length: data?.data?.totalPages });
 
-	const pageNextHandler = () => {
-		if (pageNumber !== data.data.totalPages) {
-			setPageNumber((prev) => prev + 1);
-		}
+	const { data, isPending, isError, error } = useProducts(pageNumber);
+
+
+	const handleCheckboxChange = (id) => {
+		setSelectedIds((prevSelectedIds) => {
+			if (prevSelectedIds.includes(id)) {
+				return prevSelectedIds.filter((selectedId) => selectedId !== id);
+			} else {
+				return [...prevSelectedIds, id];
+			}
+		});
 	};
-	const pagePrevHandler = () => {
-		if (pageNumber !== 1) {
-			setPageNumber((prev) => prev - 1);
+	const multiDeleteHandler =() => {
+		if(showCheckBox) {
+			const data = { ids: [...selectedIds] };
+			if(selectedIds.length) {
+				mutate(
+					{ data },
+					{
+						onSuccess: () => setSelectedIds([]),
+						onError: (error) => console.log(error),
+					}
+				);
+			}
+			setShowCheckBox(false)
+		}else {
+			setShowCheckBox(true);
 		}
-	};
-	const changePage = (number) => {
-     setPageNumber(number)
+		
 	}
 	return (
 		<div className={styles.container}>
@@ -55,7 +75,10 @@ const ProductsPage = () => {
 					<img src={settingImg} />
 					<h1>مدیریت کالا</h1>
 				</div>
-				<button onClick={() => setIsAddModalShow(true)}>افزودن محصول</button>
+				<div className={styles.bContainer}>
+					<button onClick={() => setIsAddModalShow(true)}>افزودن محصول</button>
+					<button onClick={multiDeleteHandler} className={styles.selectBtn}>{showCheckBox ? "حذف گروهی" : "انتخاب گروهی"}</button>
+				</div>
 			</div>
 			<div className={styles.products}>
 				<div className={styles.header}>
@@ -65,11 +88,17 @@ const ProductsPage = () => {
 					<p>شناسه کالا</p>
 				</div>
 				<div>
-					
 					{isPending && <h1>Loading...</h1>}
 					{!isPending &&
 						data.data.data.map((product) => (
-							<Product data={data} key={product.id} product={product} />
+							<Product
+								showCheckBox={showCheckBox}
+								handleCheckboxChange={handleCheckboxChange}
+								isSelected={selectedIds.includes(product.id)}
+								data={data}
+								key={product.id}
+								product={product}
+							/>
 						))}
 					{isError && <h1>{error}</h1>}
 				</div>
@@ -77,17 +106,7 @@ const ProductsPage = () => {
 			{isAddModalShow && (
 				<AddProductModal setIsAddModalOpen={setIsAddModalShow} />
 			)}
-			<div className={styles.paginationContainer}>
-				<button onClick={pagePrevHandler}name="prev"className={styles.prevBtn}>{"<"}</button>
-					{repetitions.map(( event , index) => (
-						<button
-						 onClick={() => changePage(index + 1)}
-						 className={`${styles.pageNumberBtn} ${pageNumber === index + 1 && styles.active}`} key={index}>
-							{index + 1}
-						</button>
-					))}
-				<button onClick={pageNextHandler}name="next"className={styles.nextBtn}>{">"}</button>
-			</div>
+			<PaginationButtons pageNumber={pageNumber} setPageNumber={setPageNumber} data={data} />
 		</div>
 	);
 };
