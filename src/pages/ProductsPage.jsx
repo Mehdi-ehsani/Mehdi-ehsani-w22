@@ -7,11 +7,12 @@ import profileImg from "../assets/image/profile.png";
 import searchImg from "../assets/image/search.png";
 import settingImg from "../assets/image/setting.png";
 import styles from "./products.module.css";
-import Product from "../components/product";
+import Product from "../components/Product";
 import AddProductModal from "../components/modals/AddProductModal";
 
 const ProductsPage = () => {
   const [isAddModalShow , setIsAddModalShow] = useState(false)
+
 	const navigate = useNavigate();
 	useEffect(() => {
 		const token = getCookie("token");
@@ -58,6 +59,7 @@ const ProductsPage = () => {
 				</div>
 			</div>
       {isAddModalShow && <AddProductModal setIsAddModalOpen={setIsAddModalShow}/>}
+	  
 		</div>
 	);
 };

@@ -30,4 +30,13 @@ const useDeleteProduct = () => {
 	  }
 	return useMutation({ mutationFn , onSuccess });
 }
-export { useRegister, useLogin ,usePostProduct , useDeleteProduct};
+const useEditProduct = (id) => {
+	const queryClient = useQueryClient()
+	
+	const mutationFn = (data) => api.put(`products/${id}`, data);
+	const onSuccess = async () => {
+		queryClient.invalidateQueries({queryKey: ["products"]})
+	  }
+	return useMutation({ mutationFn , onSuccess });
+}
+export { useRegister, useLogin ,usePostProduct , useDeleteProduct , useEditProduct};
