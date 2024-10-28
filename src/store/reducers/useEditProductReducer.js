@@ -1,16 +1,16 @@
 import { useReducer } from "react";
 import { useProducts } from "../../services/queries";
-const useEditProductReducer = (id) => {
+const useEditProductReducer =  (id) => {
     const {data} = useProducts()
-	const searchedProduct = data?.data?.data.find(
+	 const searchedProduct =  data?.data?.data.find(
 			(product) => product.id === id
-			);
+		);
      
 	
     const initialState = {
-        name: searchedProduct.name,
-        price: searchedProduct.price,
-        quantity: searchedProduct.quantity,
+        name: searchedProduct?.name,
+        price: searchedProduct?.price,
+        quantity: searchedProduct?.quantity,
         errors: {
           name: "",
           price: "",

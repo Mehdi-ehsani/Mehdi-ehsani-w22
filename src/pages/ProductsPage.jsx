@@ -1,4 +1,4 @@
-import { useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 import { getCookie } from "../utils/cookie";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../services/queries";
@@ -11,15 +11,31 @@ import Product from "../components/Product";
 import AddProductModal from "../components/modals/AddProductModal";
 
 const ProductsPage = () => {
-  const [isAddModalShow , setIsAddModalShow] = useState(false)
-
+	const [isAddModalShow, setIsAddModalShow] = useState(false);
+	const [isDisabled, setisDisabled] = useState(false);
+	const [pageNumber, setPageNumber] = useState(1);
+	
 	const navigate = useNavigate();
 	useEffect(() => {
 		const token = getCookie("token");
 		token ? null : navigate("/login");
 	}, [navigate]);
-	const { data, isPending, isError, error ,refetch } = useProducts();
+	const { data, isPending, isError, error } = useProducts(pageNumber);
+	const repetitions = Array.from({ length: data?.data?.totalPages });
 
+	const pageNextHandler = () => {
+		if (pageNumber !== data.data.totalPages) {
+			setPageNumber((prev) => prev + 1);
+		}
+	};
+	const pagePrevHandler = () => {
+		if (pageNumber !== 1) {
+			setPageNumber((prev) => prev - 1);
+		}
+	};
+	const changePage = (number) => {
+     setPageNumber(number)
+	}
 	return (
 		<div className={styles.container}>
 			<nav className={styles.nav}>
@@ -36,9 +52,9 @@ const ProductsPage = () => {
 				</div>
 			</nav>
 			<div className={styles.btn}>
-				<div>	
+				<div>
 					<img src={settingImg} />
-          <h1>مدیریت کالا</h1>
+					<h1>مدیریت کالا</h1>
 				</div>
 				<button onClick={() => setIsAddModalShow(true)}>افزودن محصول</button>
 			</div>
@@ -58,8 +74,20 @@ const ProductsPage = () => {
 					{isError && <h1>{error}</h1>}
 				</div>
 			</div>
-      {isAddModalShow && <AddProductModal setIsAddModalOpen={setIsAddModalShow}/>}
-	  
+			{isAddModalShow && (
+				<AddProductModal setIsAddModalOpen={setIsAddModalShow} />
+			)}
+			<div className={styles.paginationContainer}>
+				<button onClick={pagePrevHandler}name="prev"className={styles.prevBtn}>{"<"}</button>
+					{repetitions.map(( event , index) => (
+						<button
+						 onClick={() => changePage(index + 1)}
+						 className={`${styles.pageNumberBtn} ${pageNumber === index + 1 && styles.active}`} key={index}>
+							{index + 1}
+						</button>
+					))}
+				<button onClick={pageNextHandler}name="next"className={styles.nextBtn}>{">"}</button>
+			</div>
 		</div>
 	);
 };
