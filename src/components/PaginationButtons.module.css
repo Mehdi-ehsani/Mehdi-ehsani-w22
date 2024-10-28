@@ -17,6 +17,7 @@
 	cursor: pointer;
 }
 .active {
+    line-height: 37px !important;
 	border: none;
 	color: #ffffff;
     background: #55A3F0;

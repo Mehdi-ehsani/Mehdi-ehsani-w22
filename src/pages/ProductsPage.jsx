@@ -17,6 +17,8 @@ const ProductsPage = () => {
 	const [pageNumber, setPageNumber] = useState(1);
 	const [selectedIds, setSelectedIds] = useState([]);
 	const [showCheckBox, setShowCheckBox] = useState(false);
+	const [searchedValue , setSearchedValue] = useState("")
+
 	const {mutate} = useMultiDeleteProduct()
 
 	const navigate = useNavigate();
@@ -25,8 +27,12 @@ const ProductsPage = () => {
 		token ? null : navigate("/login");
 	}, [navigate]);
 
-	const { data, isPending, isError, error } = useProducts(pageNumber);
+	const { data, isPending, isError, error } = useProducts(pageNumber, searchedValue);
 
+    const searchHandler = (e) => {
+		const value = e.target.value.toLowerCase();
+		setSearchedValue(value)
+   }
 
 	const handleCheckboxChange = (id) => {
 		setSelectedIds((prevSelectedIds) => {
@@ -60,7 +66,7 @@ const ProductsPage = () => {
 			<nav className={styles.nav}>
 				<div className={styles.searchBox}>
 					<img src={searchImg} alt="icon" />
-					<input placeholder="جستجو کالا" />
+					<input value={searchedValue} onChange={searchHandler} placeholder="جستجو کالا" />
 				</div>
 				<div className={styles.profileView}>
 					<img src={profileImg} alt="icon" />
