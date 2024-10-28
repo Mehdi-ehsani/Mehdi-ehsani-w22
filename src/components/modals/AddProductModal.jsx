@@ -1,4 +1,4 @@
-import styles from "./AddProductModal.module.css";
+import styles from "./addAndEditModals.module.css";
 import useAddProductReducer from "../../store/reducers/useAddProductReducer";
 import { usePostProduct } from "../../services/mutations";
 

@@ -1,5 +1,5 @@
 
-import styles from "./AddProductModal.module.css";
+import styles from "./addAndEditModals.module.css";
 
 import { useEditProduct } from "../../services/mutations";
 import useEditProductReducer from "../../store/reducers/useEditProductReducer";
