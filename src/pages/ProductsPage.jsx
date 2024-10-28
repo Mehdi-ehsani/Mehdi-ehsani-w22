@@ -19,7 +19,6 @@ const ProductsPage = () => {
 	}, [navigate]);
 	const { data, isPending, isError, error ,refetch } = useProducts();
 
-	console.log(data, isPending, error);
 	return (
 		<div className={styles.container}>
 			<nav className={styles.nav}>
@@ -58,7 +57,7 @@ const ProductsPage = () => {
 					{isError && <h1>{error}</h1>}
 				</div>
 			</div>
-      {isAddModalShow && <AddProductModal refetch={refetch} setIsAddModalOpen={setIsAddModalShow}/>}
+      {isAddModalShow && <AddProductModal setIsAddModalOpen={setIsAddModalShow}/>}
 		</div>
 	);
 };

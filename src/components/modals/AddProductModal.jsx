@@ -2,7 +2,7 @@ import styles from "./AddProductModal.module.css";
 import useAddProductReducer from "../../store/reducers/useAddProductReducer";
 import { usePostProduct } from "../../services/mutations";
 
-const AddProductModal = ({ setIsAddModalOpen ,refetch }) => {
+const AddProductModal = ({ setIsAddModalOpen  }) => {
 	const [formData, dispatchFormData] = useAddProductReducer();
     const {mutate} = usePostProduct()
 
@@ -22,14 +22,16 @@ const AddProductModal = ({ setIsAddModalOpen ,refetch }) => {
 		}
 	};
     const addProduct = () => {
-      mutate({ name: formData.name, price: formData.price, quantity: formData.quantity},{
-        onSuccess: (data) => {
-            console.log(data.data);
-            refetch()
-            setIsAddModalOpen(false)
-        },
-        onError: (error) => console.log(error.response.data.message),
-    })
+	  if(formData.name || formData.price) {
+		  mutate({ name: formData.name, price: formData.price, quantity: formData.quantity},{
+			onSuccess: (data) => {
+				console.log(data.data);
+				
+				setIsAddModalOpen(false)
+			},
+			onError: (error) => console.log(error.response.data.message),
+		})
+	  }	
     }
 	return (
 		<div className={styles.container} onClick={() => setIsAddModalOpen(false)}>
