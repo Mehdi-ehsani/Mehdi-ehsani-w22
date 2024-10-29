@@ -3,14 +3,14 @@ import { getCookie } from "../utils/cookie";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../services/queries";
 
-import profileImg from "../assets/image/profile.png";
-import searchImg from "../assets/image/search.png";
 import settingImg from "../assets/image/setting.png";
 import styles from "./products.module.css";
 import Product from "../components/Product";
 import AddProductModal from "../components/modals/AddProductModal";
 import { useMultiDeleteProduct } from "../services/mutations";
 import PaginationButtons from "../components/PaginationButtons";
+import Navbar from "../components/Navbar";
+import Spinner from "../components/Spinner/Spinner";
 
 const ProductsPage = () => {
 	const [isAddModalShow, setIsAddModalShow] = useState(false);
@@ -28,11 +28,6 @@ const ProductsPage = () => {
 	}, [navigate]);
 
 	const { data, isPending, isError, error } = useProducts(pageNumber, searchedValue);
-
-    const searchHandler = (e) => {
-		const value = e.target.value.toLowerCase();
-		setSearchedValue(value)
-   }
 
 	const handleCheckboxChange = (id) => {
 		setSelectedIds((prevSelectedIds) => {
@@ -63,19 +58,7 @@ const ProductsPage = () => {
 	}
 	return (
 		<div className={styles.container}>
-			<nav className={styles.nav}>
-				<div className={styles.searchBox}>
-					<img src={searchImg} alt="icon" />
-					<input value={searchedValue} onChange={searchHandler} placeholder="جستجو کالا" />
-				</div>
-				<div className={styles.profileView}>
-					<img src={profileImg} alt="icon" />
-					<div>
-						<h3>مهدی احسانی</h3>
-						<p>مدیر</p>
-					</div>
-				</div>
-			</nav>
+			<Navbar searchedValue={searchedValue} setSearchedValue={setSearchedValue} />
 			<div className={styles.btn}>
 				<div>
 					<img src={settingImg} />
@@ -94,7 +77,7 @@ const ProductsPage = () => {
 					<p>شناسه کالا</p>
 				</div>
 				<div>
-					{isPending && <h1>Loading...</h1>}
+					{isPending && <Spinner/>}
 					{!isPending &&
 						data.data.data.map((product) => (
 							<Product

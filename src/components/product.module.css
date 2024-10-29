@@ -26,3 +26,15 @@
 .btnContainer img {
 	cursor: pointer;
 }
+@media (max-width:700px) {
+    .product {
+        padding: 0 10px;
+    }
+ .product p , .product span{
+    font-size: 10px;
+ }
+ .btnContainer div {
+    gap: 5px;
+    flex-direction: column;
+ }
+}

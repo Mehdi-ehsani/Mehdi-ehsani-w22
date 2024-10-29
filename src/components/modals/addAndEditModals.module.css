@@ -65,3 +65,11 @@
     background: #dfdfdf;
     color: #28282880;
 }
+@media (max-width:500px) {
+    .form {
+        width: calc(100% - 20px);
+    }
+    .form input {
+        width: 100%;
+    }
+}
