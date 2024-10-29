@@ -62,6 +62,7 @@ const RegistrationPage = () => {
 					type="text"
 					placeholder="نام کاربری"
 				/>
+				<p className={styles.error}>{formData.errors.name}</p>
 				<input
 					onChange={changeHandler}
 					name="password"
@@ -69,6 +70,7 @@ const RegistrationPage = () => {
 					type="password"
 					placeholder="رمز عبور"
 				/>
+				<p className={styles.error}>{formData.errors.password}</p>
 				<input
 					onChange={changeHandler}
 					name="confirm_password"
@@ -76,6 +78,7 @@ const RegistrationPage = () => {
 					type="password"
 					placeholder=" تکرار رمز عبور"
 				/>
+				<p className={styles.error}>{formData.errors.confirmPassword}</p>
 				<button onClick={addUser} className={styles.submitBtn} type="submit">
 					ثبت نام
 				</button>

@@ -4,7 +4,7 @@ const validateLoginForm = (formData , dispatchFormData) => {
         dispatchFormData({
             type: "SET_ERROR",
             field: "name",
-            payload: "Name is required",
+            payload: "نام کاربری وارد کنید",
         });
         isValid = false;
     } else {
@@ -16,14 +16,14 @@ const validateLoginForm = (formData , dispatchFormData) => {
         dispatchFormData({
             type: "SET_ERROR",
             field: "password",
-            payload: "Password is required",
+            payload: "رمز را وارد کنید",
         });
         isValid = false;
     } else if (formData.password.length < 5) {
         dispatchFormData({
             type: "SET_ERROR",
             field: "password",
-            payload: "Password is short",
+            payload: "رمز کوتاه است",
         });
         isValid = false;
     } else {

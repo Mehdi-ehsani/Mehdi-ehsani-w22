@@ -59,6 +59,7 @@ const LoginPage = () => {
 					type="text"
 					placeholder="نام کاربری"
 				/>
+				<p className={styles.error}>{formData.errors.name}</p>
 				<input
 					onChange={changeHandler}
 					name="password"
@@ -66,6 +67,7 @@ const LoginPage = () => {
 					type="password"
 					placeholder="رمز عبور"
 				/>
+				<p className={styles.error}>{formData.errors.password}</p>
 				<button onClick={loginUser} className={styles.submitBtn} type="submit">
 					ورود
 				</button>

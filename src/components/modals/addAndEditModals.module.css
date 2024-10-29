@@ -57,6 +57,11 @@
     cursor: pointer;
     margin-top: 45px;
 }
+.error {
+    width: 100%;
+    text-align: right;
+    color: red;
+}
 .addBtn {
     background: #55a3f0;
     color: #ffffff;
