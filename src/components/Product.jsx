@@ -6,6 +6,7 @@ import editImg from "../assets/image/edit.png";
 import EditProductModal from "./modals/EditProductModal";
 import DeleteConfirmModal from "./modals/DeleteConfirmModal";
 import formatNumber from "../helpers/formatNumber";
+import shortenText from "../helpers/shortenText"
 
 const Product = (props) => {
 	const { product , data , isSelected , handleCheckboxChange , showCheckBox} = props
@@ -18,7 +19,7 @@ const Product = (props) => {
 			<p>{product.quantity}</p>
 			<p>{formatNumber(product.price)} تومان</p>
 			<div className={styles.btnContainer}>
-				{product.id}
+				<span title={product.id}>{shortenText(product.id)}</span>
 				<div>
 					<img onClick={() => setIsEditModalShow(true)} src={editImg} />
 					<img onClick={() => setIsDeleteModalShow(true)} src={trashImg} />
